@@ -1,75 +1,66 @@
-class Program
-{
-    //main method
-    static void Main(string[] args)
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Silkky
+{/* Welcome to my pet simulator
+Silky Patel
+*/
+    //Pet class defination 
+    class Pet
     {
-        Console.WriteLine("Welcome to Silky's Pet Simulator!");
-        Console.WriteLine("Choose a pet type");
-        Console.WriteLine("1. Cat");
-        Console.WriteLine("2. Dog");
-        Console.WriteLine("3. Rabbit \n");
-        Console.WriteLine("User Input: ");
-        //user input
-        int choosenNumber = int.Parse(Console.ReadLine());
-        string typechoose;
-        //switch case for type
-        switch (choosenNumber)
+        public string Type { get; set; }
+        public string Name { get; set; }
+        public int Hunger { get; set; }
+        public int Happiness { get; set; }
+        public int Health { get; set; }
+        //default constructor
+        public Pet(string type, string name)
         {
-            case 1:
-            typechoose = "Cat";
-            break;
-            case 2:
-            typechoose = "Dog";
-            break;
-            case 3:
-            typechoose = "Rabbit";
-            break;
-            default:
-            Console.WriteLine("Invalid choice. Defaulting to Cat.");
-            typechoose = "Cat"; 
-            break;
+            Type = type;
+            Name = name;
+            Hunger = 5;
+            Happiness = 5;
+            Health = 8;
         }
-        Console.WriteLine($"\nYou've Chosen a {typechoose}. What would you like to name your pet?");
-        Console.WriteLine("User Input: ");
-        string name = Console.ReadLine();
-        //make new pet Using Calling pet class
-        Pet pet = new Pet(typechoose, name);
-        Console.WriteLine($"\nWelcome, {pet.Name}! Let's Take good care of him.");
-        bool exit = false;
-        while (!exit)
+        //feed method
+        public void Feed()
         {
-            Console.WriteLine("\nMain Menu:");
-            Console.WriteLine($"1. Feed {pet.Name}");
-            Console.WriteLine($"2. Play with {pet.Name}");
-            Console.WriteLine($"3. Let {pet.Name} Rest");
-            Console.WriteLine($"4. Check {pet.Name}'s status");
-            Console.WriteLine("5. Exit");
-            Console.WriteLine("User Input: ");
-            int choice = int.Parse(Console.ReadLine());
-
-            switch (choice)
-            {
-                case 1:
-                    pet.Feed();
-                    break;
-                case 2:
-                    pet.Play();
-                    break;
-                case 3:
-                    pet.Rest();
-                    break;
-                case 4:
-                    pet.Status();
-                    break;
-                case 5:
-                    exit = true;
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice. Please try again.");
-                    break;
-            }
+            Hunger -= 1;
+            if (Hunger < 0) Hunger = 0;
+            Health++;
+            Console.WriteLine($" You Fed {Name}.His hunger decreases,and health improves Slightly.\n");
         }
-
-        Console.WriteLine("Thanks for playing!");
+        //play method
+        public void Play()
+        {
+            Happiness += 2;
+            if (Happiness > 10) Happiness = 10;
+            Hunger += 1;
+            if (Hunger > 10) Hunger = 10;
+            Console.WriteLine($"You Play with {Name}.His hunger Improves,and health improves Slightly.\n");
+        }
+        //rest method
+        public void Rest()
+        {
+            Health += 2;
+            if (Health > 10) Health = 10;
+            Happiness--;
+            if (Happiness < 0) Happiness = 0;
+            Console.WriteLine($" resting time {Name}.His Happiness decreases,and health improves Slightly.\n");
+        }
+        //status after calling methods
+        public void Status()
+        {
+            Console.WriteLine($"{Name}'s Status:");
+            Console.WriteLine($"-Hunger: {Hunger}");
+            Console.WriteLine($"-HungerHappiness: {Happiness}");
+            Console.WriteLine($"-Health: {Health}\n");
+        }
     }
+
+    
+    //Thank you.
 }
