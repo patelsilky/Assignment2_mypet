@@ -1,41 +1,53 @@
 using System;
-
-public class Pet
+//Pet class defination 
+class Pet
 {
-    public PetType Type { get; private set; }
-    public string Name { get; private set; }
-    public PetStatus Status { get; private set; }
-
-    public Pet(PetType type, string name)
+    public string Type { get; set; }
+    public string Name { get; set; }
+    public int Hunger { get; set; }
+    public int Happiness { get; set; }
+    public int Health { get; set; }
+    //default constructor
+    public Pet(string type, string name)
     {
         Type = type;
         Name = name;
-        Status = new PetStatus();
+        Hunger = 5;
+        Happiness = 5;
+        Health = 8;
     }
-
+    //feed method
     public void Feed()
     {
-        Status.Hunger = Math.Max(1, Status.Hunger - 1);
-        Status.Health = Math.Min(10, Status.Health + 1);
-        Console.WriteLine($"{Name} has been fed. Hunger decreases, health improves slightly.");
+        Hunger -= 1;
+        if (Hunger < 0) Hunger = 0;
+        Health++;
+        Console.WriteLine($" You Fed {Name}.His hunger decreases,and health improves Slightly.\n");
     }
-
+    //play method
     public void Play()
     {
-        Status.Happiness = Math.Min(10, Status.Happiness + 2);
-        Status.Hunger = Math.Min(10, Status.Hunger + 1);
-        Console.WriteLine($"You played with {Name}. Happiness increases but gets a bit hungrier.");
+        Happiness += 2;
+        if (Happiness > 10) Happiness = 10;
+        Hunger += 1;
+        if (Hunger > 10) Hunger = 10;
+        Console.WriteLine($"You Play with {Name}.His hunger Improves,and health improves Slightly.\n");
     }
-
+    //rest method
     public void Rest()
     {
-        Status.Health = Math.Min(10, Status.Health + 2);
-        Status.Happiness = Math.Max(1, Status.Happiness - 1);
-        Console.WriteLine($"{Name} had a rest. Health improves, happiness decreases slightly.");
+        Health += 2;
+        if (Health > 10) Health = 10;
+        Happiness--;
+        if (Happiness < 0) Happiness = 0;
+        Console.WriteLine($" resting time {Name}.His Happiness decreases,and health improves Slightly.\n");
     }
-
-    public void CheckStatus()
+    //status after calling methods
+    public void Status()
     {
-        Console.WriteLine($"{Name}'s status:\n- Hunger: {Status.Hunger}\n- Happiness: {Status.Happiness}\n- Health: {Status.Health}");
+        Console.WriteLine($"{Name}'s Status:");
+        Console.WriteLine($"-Hunger: {Hunger}");
+        Console.WriteLine($"-HungerHappiness: {Happiness}");
+        Console.WriteLine($"-Health: {Health}\n");
     }
 }
